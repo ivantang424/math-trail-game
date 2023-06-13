@@ -1,0 +1,79 @@
+<html>
+<head>
+
+<meta charset="UTF-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<style>
+#ans_container , #ans{
+height: 50px;
+width: 300px;
+font-size: 25px;
+text-align: center; 
+}
+
+#submitBtn{
+margin-top: 5%;
+width: 200px;
+height: 50px;
+font-size: 25px;
+}
+</style>
+</head>
+	<body>
+		<label>
+			<span id="question_no" style="font-size:48px;font-family: Verdana, sans-serif;"></span>
+		</label>
+		
+		<center>
+		
+		<div id="container" style="padding-top:5%">
+			<img id="questionImg"></img>
+		</div>
+		
+		<div id="ans_container">
+			Answer:<input type="text" id="ans" />
+			
+			<button type="button" id="submitBtn" class="btn btn-default">
+				Submit
+			</button>
+		</div>
+		
+		
+		
+		</center>
+		
+	</body>
+</html>
+<script>
+	// just generate random numbers...
+	function getRandomInt(max) {
+		return Math.floor(Math.random() * max);
+	}
+	
+	var x = getRandomInt(320) + 1;
+	document.getElementById("question_no").innerHTML = "Question "+ x + ":" ;
+	document.getElementById("questionImg").src="./media/image"+x+".png";
+	document.getElementById("submitBtn").addEventListener("click", checkAns);
+	
+	var count = 1;
+	
+	function checkAns(){
+		var ans = document.getElementById("ans").value;
+		
+		if(count == 3){
+			alert("You have already answered 3 times!")
+			return ;
+		}
+		
+		if (ans==x){
+			alert("You used " + count +" times to make it correct!");
+		}else{
+			alert("Incorrect! please try again");
+			count += 1;
+		}
+		
+	}
+</script>
+

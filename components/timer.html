@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Static Timer</title>
+</head>
+<body>
+  <h1>Static Timer</h1>
+  <p>Elapsed time: <span id="timer">00:00:00</span></p>
+  <button id="start-btn">Start</button>
+  
+  <script>
+    let startTime = localStorage.getItem('startTime'); // Get the start time from local storage
+    let timerElement = document.getElementById('timer'); // Get the timer display element
+    let startButton = document.getElementById('start-btn'); // Get the start button element
+    
+    // Set up the timer if the start time exists in local storage
+    if (startTime) {
+      startButton.disabled = true; // Disable the start button to prevent multiple timers from running
+      startTimer(); // Start the timer
+    }
+    
+    // Add an event listener to the start button
+    startButton.addEventListener('click', function() {
+      startTime = Date.now(); // Set the start time to the current time
+      localStorage.setItem('startTime', startTime); // Store the start time in local storage
+      startButton.disabled = true; // Disable the start button to prevent multiple timers from running
+      startTimer(); // Start the timer
+    });
+    
+    // Update the timer display every second
+    function startTimer() {
+      setInterval(function() {
+        let elapsedTime = Math.floor((Date.now() - startTime) / 1000); // Calculate elapsed time in seconds
+        let hours = Math.floor(elapsedTime / 3600); // Calculate hours
+        let minutes = Math.floor((elapsedTime - (hours * 3600)) / 60); // Calculate minutes
+        let seconds = elapsedTime % 60; // Calculate seconds
+        timerElement.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`; // Update the timer display element
+      }, 1000); // Run the function every second (1000 milliseconds)
+    }
+  </script>
+</body>
+</html>
